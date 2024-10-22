@@ -1,0 +1,125 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Portofolio CMS</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+  <!-- Navigation Section -->
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bolder d-flex align-items-center gap-1" href="#">
+        <img src="/assets/images/brand-icon.png" width="32" height="32" />
+        Article CMS
+      </a>
+      <div class="dropdown">
+        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+        </a>
+      
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Users</a></li>
+          <li><a class="dropdown-item" href="#">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="container overflow-hidden mt-5">
+  
+    <!-- Create Article Button Modal  -->
+    <div class="d-flex justify-content-end align-items-center">
+      <button class="btn btn-primary fw-semibold" type="button" onclick="toggleFormAddArticle('modal-create-article')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        </svg>
+        Create New Article
+      </button>
+    </div>
+
+    <!-- Create Article Form Modal  -->
+    <div id="modal-create-article" class="custom-modal">
+      <div style="max-width: 500px; margin: 0 auto; position: relative;">
+        <form id="form-create-article" class="custom-modal-content p-4 mt-4 shadow"
+          onsubmit="handleFormSubmitAddArticle(event)">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold fs-4">New Article Form</h3>
+            <button class="bg-transparent border-0 position-absolute top-0 end-0" onclick="closeModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+              </svg>
+            </button>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold" for="input-article-title">Article title</label>
+            <input id="input-article-title" type="text" class="form-control" required placeholder="Article title" name="title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold" for="input-article-image">Image URL</label>
+
+            <!-- 
+              This input field accepts a valid image URL.
+                
+              Pattern details:
+                - The URL must start with http:// or https://.
+                - The rest of the URL can contain any characters, allowing for query parameters, CDN URLs, etc.
+                - No restriction on file extensions.
+            -->
+            <input id="input-article-image" type="text" class="form-control" required pattern="https?://.+"
+              title="Please enter a valid image URL starting with http:// or https://"
+              placeholder="e.g., https://placehold.co/800x600" name="imageUrl">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold" for="input-article-description">Content</label>
+            <textarea id="input-article-description" class="form-control" placeholder="Article content here"
+              required name="description"></textarea>
+          </div>
+          <div class="d-flex w-100 mt-2">
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Lists Section -->
+  <section class="container overflow-hidden mt-5">
+    <div id="article-section" class="row gy-4">
+
+    </div>
+  </section>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-delete-modal" class="custom-modal">
+    <div class="custom-modal-content" style="max-width: 360px; margin: 0 auto;">
+        <h3 class="fw-bold fs-4">Confirm Deletion</h3>
+        <p>Are you sure you want to delete this article?</p>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary me-2" onclick="closeModal()">Cancel</button>
+            <button id="confirm-delete-btn" class="btn btn-danger" onclick="deleteArticle()">Delete</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="/js/articles.js"></script>
+</body>
+
+</html>
